@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	
+<head>
+	<title>Convite para sair</title>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vamos sair</title>
+	<script src="https://formsubmit.co/js/v1.6/formsubmit.js" ></script>
+    
+	<style>
+			body {
+				transition: background-color 2s;
+				background: linear-gradient(100deg, rgba(244, 5, 124, 0.845) 0%, rgba(255,0,0,0.5) 100%);
+			}
+
+			button {
+				background-color: rgba(255, 63, 63, 0.283);
+				color: white;
+				padding: 10px 20px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				margin-bottom: 10px;
+				font-size: 18px;
+			}
+
+			button:hover {
+				opacity: 0.9;
+			}
+
+			textarea {
+				width: 70%;
+				height: 50px;
+				padding: 12px 20px;
+				box-sizing: border-box;
+				border: 2px solid #ccc;
+				border-radius: 4px;
+				background-color: #f8f8f8;
+				font-size: 16px;
+				resize: none;
+				margin-bottom: 10px;
+			}
+
+			.box {
+  				display: flex;
+  				flex-direction: column;
+  				align-items: center;
+  				margin: auto;
+  				padding: 20px;
+  				background-color: rgba(255, 255, 255, 0.231); /* Define o fundo opaco */
+  				border-radius: 10px;
+  				box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  				width: 70%;
+  				height: auto;
+  				margin-top: 50px;
+			}
+			.radio-option {
+				background-color: rgba(255, 63, 63, 0.283);
+				opacity: 0.9;
+				color: rgb(0, 0, 0);
+				padding: 10px 20px;
+				border: none;
+				border-radius: 10px;
+				cursor: pointer;
+				margin-bottom: 10px;
+				font-size: 18px;
+			}
+			.text{
+				display: flex;
+  				flex-direction: column;
+  				align-items: center;
+  				margin: auto;
+  				padding: 5px;
+  				background-color: rgba(255, 255, 255, 0.231); /* Define o fundo opaco */
+  				border-radius: 15px;
+  				box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  				width: 70%;
+  				height: auto;
+  				margin-top: 50px;
+			}
+
+	</style>
+</head>
+
+<body>
+	<div class="box">
+		<h1>Bem-vindo(a)!</h1>
+		<p>Gostaria de sair comigo?</p>
+		<button onclick="mostrarOpcoes()">Sim</button>
+		<button onclick="naoQuero()">Não</button>
+
+		<div id="opcoes" style="display:none">
+			<h2>Escolha uma opção:</h2>
+			<button onclick="mostrarRestaurantes()">Jantar/Rodizio</button>
+			<button onclick="mostrarParque()">Dar uma volta Praça/Parque</button>
+			<button onclick="mostrarBar()">Bar</button>
+		</div>
+
+		<form id="meuFormulario" action="https://formsubmit.co/g.poortoo@gmail.com" method="POST">
+		<input type="hidden" name="_captcha" value="false">	
+		<div id="restaurantes" style="display:none">
+    	<h2>Escolha um restaurante:</h2>
+    	<label class="radio-option"><input type="radio" name="restaurante" value="Churrascaria">Churrascaria</label>
+    	<label class="radio-option"><input type="radio" name="restaurante" value="Pizzaria">Pizzaria</label>
+    	<label class="radio-option"><input type="radio" name="restaurante" value="Rodizio de Crepe">Rodizio de Crepe</label>
+    	<textarea class="text" placeholder="Caso queira escrever algo" name="comentario_restaurante" rows="10" required></textarea>
+    	<br><br>
+    	<button onclick="enviar()">Enviar</button>
+    	<button type="button" onclick="voltar()">Voltar</button>
+		</div>
+
+		<div id="parque" style="display:none">
+			<h2>Qual lugar gostaria de ir ?</h2>
+			<label class="radio-option"><input type="radio" name="parque" value="Ir em uma praça">Ir em uma praça</label>
+			<label class="radio-option"><input type="radio" name="parque" value="Dar uma volta no parque">Dar uma volta no parque</label>
+			<textarea class="text" placeholder="Caso queira escrever algo" name="comentario_parque" rows="10" required></textarea>
+			<br><br>
+			<button onclick="enviar()">Enviar</button>
+			<button type="button" onclick="voltar()">Voltar</button>
+		</div>
+		
+
+		<div id="bar" style="display:none">
+			<h2>Escolha um bar:</h2>
+			<label class="radio-option"><input type="radio" name="bar" value="Forasteiros Bar">Forasteiros Bar</label>
+			<label class="radio-option"><input type="radio" name="bar" value="Saideira">Saideira</label>
+			<label class="radio-option"><input type="radio" name="bar" value="Potiguar">Potiguar</label>
+			<textarea class="text" placeholder="Caso queira escrever algo" name="comentario_bar" rows="10" required></textarea>
+			<br><br>
+			<button onclick="enviar()">Enviar</button>
+			<button type="button" onclick="voltar()">Voltar</button>
+		</div>
+
+		<div id="comentario" style="display:none">
+			<h2>Escreva um comentário:</h2>
+			<textarea id="comentario-textarea"></textarea>
+			<br><br>
+			<button onclick="enviar()">Enviar</button>
+			<br><br>
+			<button onclick="voltar()">Voltar</button>
+		</div>
+		</form>
+	</div>
+</body>
+
+
+<script>
+		function mostrarOpcoes() {
+			document.getElementById("opcoes").style.display = "block";
+		}
+			function naoQuero() {
+			alert("Tudo bem, talvez outra hora.");
+		}
+			function mostrarRestaurantes() {
+			document.getElementById("restaurantes").style.display = "block";
+			document.getElementById("opcoes").style.display = "none";
+		}
+			function mostrarParque() {
+			document.getElementById("parque").style.display = "block";
+			document.getElementById("opcoes").style.display = "none";
+		}
+			function mostrarBar() {
+			document.getElementById("bar").style.display = "block";
+			document.getElementById("opcoes").style.display = "none";
+		}
+			function mostrarBox(prev, texto) {
+			document.getElementById(prev).style.display = "none";
+			document.getElementById("comentario").style.display = "block";
+			document.getElementById("comentario-textarea").value;
+		}	
+
+		function voltar() {
+			if(document.getElementById("restaurantes").style.display === "block") {
+			document.getElementById("restaurantes").style.display = "none";
+			document.getElementById("opcoes").style.display = "block";
+		}
+		 	else if(document.getElementById("parque").style.display === "block") {
+			document.getElementById("parque").style.display = "none";
+			document.getElementById("opcoes").style.display = "block";
+		} 
+		 	else if(document.getElementById("bar").style.display === "block") {
+			document.getElementById("bar").style.display = "none";
+			document.getElementById("opcoes").style.display = "block";
+		} 
+			else if(document.getElementById("comentario").style.display === "block") {
+			document.getElementById("comentario").style.display = "none";
+			document.getElementById("restaurantes").style.display = "block";
+		}
+	}
+		function enviar() {
+  			document.getElementById("meuFormulario").submit();
+			}
+		
+		function resetar() {
+			document.getElementById("restaurantes").style.display = "none";
+			document.getElementById("parque").style.display = "none";
+			document.getElementById("bar").style.display = "none";
+			document.getElementById("comentario").style.display = "none";
+			document.getElementById("opcoes").style.display = "block";
+		}
+		function changeColor() {
+			let r = Math.floor(Math.random() * 256);
+			let g = Math.floor(Math.random() * 256);
+			let b = Math.floor(Math.random() * 256);
+			document.body.style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";
+			setTimeout(changeColor, 3000);
+		}
+		changeColor();		
+</script>
